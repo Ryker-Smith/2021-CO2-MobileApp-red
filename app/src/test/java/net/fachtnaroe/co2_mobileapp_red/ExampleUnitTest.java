@@ -1,4 +1,4 @@
-package net.fachtnaroe.co2_mobileapp_green;
+package net.fachtnaroe.co2_mobileapp_red;
 
 import org.junit.Test;
 

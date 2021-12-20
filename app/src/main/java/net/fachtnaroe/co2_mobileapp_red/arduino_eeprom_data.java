@@ -1,4 +1,4 @@
-package net.fachtnaroe.co2_mobileapp_green;
+package net.fachtnaroe.co2_mobileapp_red;
 class arduino_eeprom_data {
         private static final int max_SSID = 32;
         private static final int max_PSK = 64;

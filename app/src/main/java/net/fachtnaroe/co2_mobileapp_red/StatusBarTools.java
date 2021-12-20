@@ -4,7 +4,7 @@ Author: Salman Dev
 Was:
 package com.SalmanDev.StatusBarTools;
 */
-package net.fachtnaroe.co2_mobileapp_green;
+package net.fachtnaroe.co2_mobileapp_red;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;

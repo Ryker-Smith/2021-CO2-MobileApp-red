@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "net.fachtnaroe.co2_mobileapp_green"
+        applicationId "net.fachtnaroe.co2_mobileapp_red"
         minSdk 26
         targetSdk 31
         versionCode 1

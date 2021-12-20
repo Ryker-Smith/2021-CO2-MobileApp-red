@@ -1,4 +1,4 @@
-package net.fachtnaroe.co2_mobileapp_green;
+package net.fachtnaroe.co2_mobileapp_red;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("net.fachtnaroe.co2_mobileapp_green", appContext.getPackageName());
+        assertEquals("net.fachtnaroe.co2_mobileapp_red", appContext.getPackageName());
     }
 }
