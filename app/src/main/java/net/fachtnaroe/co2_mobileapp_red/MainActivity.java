@@ -35,7 +35,8 @@ public class MainActivity extends Form implements HandlesEventDispatching {
     VerticalScrollArrangement Screen1;
     HorizontalArrangement HorizontalArrangement1, HorizontalArrangement2, HorizontalArrangement3, HorizontalArrangement4, HorizontalArrangement5;
     VerticalArrangement VerticalArrangement1;
-    Label Null, Co2, Co2Reading, Co2Measurement, TVOC, TVOCReading, TVOCMeasurement, Temp, TempReading, TempMeasurement, SelectedNetwork, NetworkSelection, Logo;
+    Label Null, Co2, Co2Reading, Co2Measurement, TVOC, TVOCReading, TVOCMeasurement, Temp, TempReading, TempMeasurement, SelectedNetwork, Logo;
+    TextBox NetworkSelection;
     Button SettingsButton, GoButton;
     Web connectionDemo;
     Notifier notifier_Messages;
@@ -50,7 +51,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         Screen1.WidthPercent(100);
         Screen1.AlignVertical(1);
         Screen1.AlignHorizontal(1);
-        Screen1.BackgroundColor(Color.parseColor("#00FF00"));
+        Screen1.BackgroundColor(Color.parseColor("#87cefa"));
 
         //HorizontalArrangement1
         HorizontalArrangement1 = new HorizontalArrangement(Screen1);
@@ -59,11 +60,11 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         HorizontalArrangement1.BackgroundColor(Color.parseColor("#0000CD"));
         //Label-HorizontalArrangement1
         Logo = new Label(HorizontalArrangement1);
-        Logo.Text("GREEN TEAM");
+        Logo.Text("RED TEAM");
         Logo.FontBold(true);
         Logo.FontSize(20);
         Logo.TextAlignment(0);
-        Logo.TextColor(Color.parseColor("#000000"));
+        Logo.TextColor(Color.parseColor("#ffffff"));
         Logo.FontItalic(true);
 
         //VerticalArrangement1
@@ -89,14 +90,14 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         SelectedNetwork.TextAlignment(1);
         SelectedNetwork.HasMargins(true);
         //Label-VerticalArrangement1
-        NetworkSelection = new Label(VerticalArrangement1);
+        NetworkSelection = new TextBox(VerticalArrangement1);
         NetworkSelection.HeightPercent(5);
         NetworkSelection.WidthPercent(100);
         NetworkSelection.BackgroundColor(Color.parseColor("#8cc9ff"));
         NetworkSelection.FontSize(25);
         NetworkSelection.TextAlignment(1);
-        NetworkSelection.Text("");
-        NetworkSelection.HasMargins(false);
+        NetworkSelection.Text("sensor=CO2&device=TCFE-CO2-E1-2C");
+//        NetworkSelection.HasMargins(false);
         //Label-VerticalArrangement1
         Null = new Label(VerticalArrangement1);
         Null.HeightPercent(20);
@@ -268,7 +269,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
     }
 
     public boolean dispatchEvent(Component component, String componentName, String eventName, Object[] params) {
-        System.err.print("dispatchEvent: " + formName + " [" + component.toString() + "] [" + componentName + "] " + eventName);
+        dbg("dispatchEvent: " + formName + " [" + component.toString() + "] [" + componentName + "] " + eventName);
         if (eventName.equals("BackPressed")) {
             return true;
         }
@@ -281,8 +282,10 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         }
         else if (eventName.equals("Click")) {
             if (component.equals(SettingsButton)) {
+                dbg("k");
                 connectionDemo.Url(addressOfData +  NetworkSelection.Text());
                 connectionDemo.Get();
+                dbg(connectionDemo.Url());
                 return true;
             }
         }
@@ -290,10 +293,11 @@ public class MainActivity extends Form implements HandlesEventDispatching {
     }
 
     void manageResponse(Component c, String status, String textOfResponse) {
-        System.err.print("GOT SOME TEXT");
+        dbg("GOT SOME TEXT");
         if (status.equals("200")) try {
             JSONObject parser = new JSONObject(textOfResponse);
-            if (!parser.getString("Status").equals("OK")) {
+            if (parser.getString("Status").equals("OK")) {
+                dbg("gh");
             }
         }
         catch (JSONException e) {
@@ -301,6 +305,6 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         }
     }
     public static void dbg (String debugMsg) {
-        System.err.print("~~~>" + debugMsg + "<~~~\n");
+        System.err.println("~~~>" + debugMsg + "<~~~\n");
     }
 }
