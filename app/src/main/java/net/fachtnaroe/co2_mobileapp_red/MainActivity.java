@@ -36,11 +36,12 @@ public class MainActivity extends Form implements HandlesEventDispatching {
     HorizontalArrangement HorizontalArrangement1, HorizontalArrangement2, HorizontalArrangement3, HorizontalArrangement4, HorizontalArrangement5;
     VerticalArrangement VerticalArrangement1;
     Label Null, Co2, Co2Reading, Co2Measurement, TVOC, TVOCReading, TVOCMeasurement, Temp, TempReading, TempMeasurement, SelectedNetwork, Logo;
-    TextBox NetworkSelection;
+    TextBox NetworkSelection, NetworkSelection1, NetworkSelection2;
     Button SettingsButton, GoButton;
-    Web connectionDemo;
+    Web connectionDemo, Relay, connectionRelay;
     Notifier notifier_Messages;
     String addressOfData = "https://t.fachtnaroe.net/qndco2?";
+    String addressOfData1 = "https://t.fachtnaroe.net/qndco2?";
 
     protected void $define() {
         //Screen1-VScrollArrangement
@@ -69,7 +70,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
 
         //VerticalArrangement1
         VerticalArrangement1 = new VerticalArrangement(Screen1);
-        VerticalArrangement1.HeightPercent(40);
+        VerticalArrangement1.HeightPercent(50);
         VerticalArrangement1.WidthPercent(100);
         //Button-VerticalArrangement1
         SettingsButton = new Button(VerticalArrangement1);
@@ -97,6 +98,20 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         NetworkSelection.FontSize(25);
         NetworkSelection.TextAlignment(1);
         NetworkSelection.Text("sensor=CO2&device=TCFE-CO2-E1-2C");
+        NetworkSelection1 = new TextBox(VerticalArrangement1);
+        NetworkSelection1.HeightPercent(5);
+        NetworkSelection1.WidthPercent(100);
+        NetworkSelection1.BackgroundColor(Color.parseColor("#8cc9ff"));
+        NetworkSelection1.FontSize(25);
+        NetworkSelection1.TextAlignment(1);
+        NetworkSelection1.Text("sensor=CELCIUS&device=TCFE-CO2-E1-2C");
+        NetworkSelection2 = new TextBox(VerticalArrangement1);
+        NetworkSelection2.HeightPercent(5);
+        NetworkSelection2.WidthPercent(100);
+        NetworkSelection2.BackgroundColor(Color.parseColor("#8cc9ff"));
+        NetworkSelection2.FontSize(25);
+        NetworkSelection2.TextAlignment(1);
+        NetworkSelection2.Text("sensor=VOC&device=TCFE-CO2-E1-2C");
 //        NetworkSelection.HasMargins(false);
         //Label-VerticalArrangement1
         Null = new Label(VerticalArrangement1);
@@ -104,7 +119,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         //Button-VerticalArrangement1
         GoButton = new Button(VerticalArrangement1);
         GoButton.WidthPercent(100);
-        GoButton.HeightPercent(5);
+        GoButton.HeightPercent(6);
         GoButton.WidthPercent(100);
         GoButton.Text("Press for new readings");
         GoButton.FontBold(true);
@@ -136,8 +151,8 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         Co2Reading = new Label(HorizontalArrangement2);
         Co2Reading.HeightPercent(10);
         Co2Reading.WidthPercent(40);
-        Co2Reading.Text("0576");
-        Co2Reading.TextColor(Color.parseColor("#f2f9ff"));
+       // Co2Reading.Text("0576");
+        Co2Reading.TextColor(Color.parseColor("#FFFAF0"));
         Co2Reading.TextAlignment(1);
         Co2Reading.HasMargins(false);
         Co2Reading.FontBold(true);
@@ -150,7 +165,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         Co2Measurement.HeightPercent(10);
         Co2Measurement.WidthPercent(30);
         Co2Measurement.Text("ppm");
-        Co2Measurement.TextColor(Color.parseColor("#f2f9ff"));
+        Co2Measurement.TextColor(Color.parseColor("#FFFAF0"));
         Co2Measurement.TextAlignment(0);
         Co2Measurement.HasMargins(false);
         Co2Measurement.FontBold(true);
@@ -183,8 +198,8 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         TVOCReading = new Label(HorizontalArrangement3);
         TVOCReading.HeightPercent(10);
         TVOCReading.WidthPercent(40);
-        TVOCReading.Text("0025");
-        TVOCReading.TextColor(Color.parseColor("#FF0000"));
+       // TVOCReading.Text("0025");
+        TVOCReading.TextColor(Color.parseColor("#FFFAF0"));
         TVOCReading.TextAlignment(1);
         TVOCReading.HasMargins(false);
         TVOCReading.FontBold(true);
@@ -197,7 +212,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         TVOCMeasurement.HeightPercent(10);
         TVOCMeasurement.WidthPercent(30);
         TVOCMeasurement.Text("ppm");
-        TVOCMeasurement.TextColor(Color.parseColor("#f2f9ff"));
+        TVOCMeasurement.TextColor(Color.parseColor("#FFFAF0"));
         TVOCMeasurement.TextAlignment(0);
         TVOCMeasurement.HasMargins(false);
         TVOCMeasurement.FontBold(true);
@@ -218,7 +233,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         Temp.HeightPercent(10);
         Temp.WidthPercent(30);
         Temp.Text("TEMP:");
-        Temp.TextColor(Color.parseColor("#f2f9ff"));
+        Temp.TextColor(Color.parseColor("#FFFAF0"));
         Temp.TextAlignment(2);
         Temp.HasMargins(false);
         Temp.FontBold(true);
@@ -230,8 +245,8 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         TempReading = new Label(HorizontalArrangement4);
         TempReading.HeightPercent(10);
         TempReading.WidthPercent(40);
-        TempReading.Text("19.7");
-        TempReading.TextColor(Color.parseColor("#f2f9ff"));
+      //  TempReading.Text("19.7");
+        TempReading.TextColor(Color.parseColor("#FFFAF0"));
         TempReading.TextAlignment(1);
         TempReading.HasMargins(false);
         TempReading.FontBold(true);
@@ -244,7 +259,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         TempMeasurement.HeightPercent(10);
         TempMeasurement.WidthPercent(30);
         TempMeasurement.Text("C°");
-        TempMeasurement.TextColor(Color.parseColor("#f2f9ff"));
+        TempMeasurement.TextColor(Color.parseColor("#FFFAF0"));
         TempMeasurement.TextAlignment(0);
         TempMeasurement.HasMargins(false);
         TempMeasurement.FontBold(true);
@@ -261,6 +276,10 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         //Web-connectionDemo
         connectionDemo = new Web(this);
         connectionDemo.Url("addressOfData");
+        Relay = new Web(this);
+        Relay.Url("addressOfData1");
+        connectionRelay = new Web(this);
+        connectionRelay.Url("addressOfData1");
 
         //Event Dispatcher
         EventDispatcher.registerEventForDelegation(this, formName, "BackPressed");
@@ -279,12 +298,31 @@ public class MainActivity extends Form implements HandlesEventDispatching {
                 String textOfResponse = (String) params[3];
                 manageResponse(component, status, textOfResponse);
             }
+        else
+            if (component.equals(Relay)) {
+                String status = params[1].toString();
+                String textOfResponse = (String) params[3];
+                manageResponse(component, status, textOfResponse);
+            }
+            else
+            if (component.equals(connectionRelay)) {
+                String status = params[1].toString();
+                String textOfResponse = (String) params[3];
+                manageResponse(component, status, textOfResponse);
+            }
         }
         else if (eventName.equals("Click")) {
             if (component.equals(SettingsButton)) {
                 dbg("k");
-                connectionDemo.Url(addressOfData +  NetworkSelection.Text());
+                connectionDemo.Url(addressOfData + NetworkSelection.Text());
                 connectionDemo.Get();
+
+                Relay.Url(addressOfData1 + NetworkSelection1.Text());
+                Relay.Get();
+                dbg(connectionDemo.Url());
+
+                connectionRelay.Url(addressOfData1 + NetworkSelection2.Text());
+                connectionRelay.Get();
                 dbg(connectionDemo.Url());
                 return true;
             }
@@ -298,6 +336,15 @@ public class MainActivity extends Form implements HandlesEventDispatching {
             JSONObject parser = new JSONObject(textOfResponse);
             if (parser.getString("Status").equals("OK")) {
                 dbg("gh");
+                if (c.equals(connectionDemo)) {
+                    Co2Reading.Text(parser.getString("value"));
+                }
+                else {
+                    TempReading.Text(parser.getString("value"));
+                }
+                if (c.equals(connectionRelay)){
+                    TVOCReading.Text(parser.getString("value"));
+                }
             }
         }
         catch (JSONException e) {
