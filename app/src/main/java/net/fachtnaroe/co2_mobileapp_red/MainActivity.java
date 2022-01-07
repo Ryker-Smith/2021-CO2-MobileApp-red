@@ -38,6 +38,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
     Label Null, Co2, Co2Reading, Co2Measurement, TVOC, TVOCReading, TVOCMeasurement, Temp, TempReading, TempMeasurement, SelectedNetwork, Logo;
     TextBox NetworkSelection, NetworkSelection1, NetworkSelection2;
     Button SettingsButton, GoButton;
+    Clock Ticker;
     Web connectionDemo, Relay, connectionRelay;
     Notifier notifier_Messages;
     String addressOfData = "https://t.fachtnaroe.net/qndco2?";
@@ -67,6 +68,10 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         Logo.TextAlignment(0);
         Logo.TextColor(Color.parseColor("#ffffff"));
         Logo.FontItalic(true);
+
+        Ticker = new Clock (Screen1);
+        Ticker.TimerInterval (60000);
+        Ticker.TimerEnabled(true);
 
         //VerticalArrangement1
         VerticalArrangement1 = new VerticalArrangement(Screen1);
@@ -117,14 +122,14 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         Null = new Label(VerticalArrangement1);
         Null.HeightPercent(20);
         //Button-VerticalArrangement1
-        GoButton = new Button(VerticalArrangement1);
-        GoButton.WidthPercent(100);
-        GoButton.HeightPercent(6);
-        GoButton.WidthPercent(100);
-        GoButton.Text("Press for new readings");
-        GoButton.FontBold(true);
-        GoButton.FontSize(16);
-        GoButton.TextAlignment(1);
+//        GoButton = new Button(VerticalArrangement1);
+//        GoButton.WidthPercent(100);
+//        GoButton.HeightPercent(6);
+//        GoButton.WidthPercent(100);
+//        GoButton.Text("Press for new readings");
+//        GoButton.FontBold(true);
+//        GoButton.FontSize(16);
+//        GoButton.TextAlignment(1);
         SettingsButton.BackgroundColor(Component.COLOR_RED);
 
         //HorizontalArrangement2
@@ -285,6 +290,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
         EventDispatcher.registerEventForDelegation(this, formName, "BackPressed");
         EventDispatcher.registerEventForDelegation(this, formName, "Click");
         EventDispatcher.registerEventForDelegation(this, formName, "GotText");
+        EventDispatcher.registerEventForDelegation(this, formName, "Timer");
     }
 
     public boolean dispatchEvent(Component component, String componentName, String eventName, Object[] params) {
@@ -324,8 +330,25 @@ public class MainActivity extends Form implements HandlesEventDispatching {
                 connectionRelay.Url(addressOfData1 + NetworkSelection2.Text());
                 connectionRelay.Get();
                 dbg(connectionDemo.Url());
+
                 return true;
             }
+        }
+        else if (eventName.equals("Timer")) {
+                Ticker.TimerEnabled(false);
+                dbg("k");
+                connectionDemo.Url(addressOfData + NetworkSelection.Text());
+                connectionDemo.Get();
+
+                Relay.Url(addressOfData1 + NetworkSelection1.Text());
+                Relay.Get();
+                dbg(connectionDemo.Url());
+
+                connectionRelay.Url(addressOfData1 + NetworkSelection2.Text());
+                connectionRelay.Get();
+                dbg(connectionDemo.Url());
+
+                return true;
         }
         return false;
     }
@@ -345,6 +368,7 @@ public class MainActivity extends Form implements HandlesEventDispatching {
                 if (c.equals(connectionRelay)){
                     TVOCReading.Text(parser.getString("value"));
                 }
+                Ticker.TimerEnabled(true);
             }
         }
         catch (JSONException e) {
